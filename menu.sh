@@ -29,6 +29,11 @@ function main(){
 
 
 
+#func: "show top"
+function any_func_name(){
+  top
+}
+
 #func: "action number 1"
 function any_func_name(){
   echo "hello world"
@@ -38,6 +43,18 @@ function any_func_name(){
 #func: "action number 2"
 function another_func_name(){
   echo "hello world 2"
+  another_service_function
 }
 
+function another_service_function(){
+    echo "this is a function not in the menu"
+}
+
+
+#func: "Quit"
+function quit(){
+    exit 0
+}
+
+while :; do main;sleep 0.2; done
 

@@ -11,11 +11,11 @@ function main(){
 
     menu_options=()
 #    grep '^#func:' workers.stats.sh | sed 's/#func://' > workers.stats.menu
-    cat $0 | grep -A1 '^#func:' | grep -v '^-' | sed 's/(){//' | sed 's/^function //' | sed 's/^#func://' | while read l1; do read l2; echo "$l2 $l1"; done > workers.stats.menu
+    cat $0 | grep -A1 '^#func:' | grep -v '^-' | sed 's/(){//' | sed 's/^function //' | sed 's/^#func://' | while read l1; do read l2; echo "$l2 $l1"; done > menu.items.txt
 
     while read -r number text; do
         menu_options+=( ${number//\"} "${text//\"}" )
-    done < workers.stats.menu
+    done < menu.items.txt
 
     export inp=$(whiptail --backtitle "`date` $inst_data" --title $title  --cancel-button "Quit" --notags --default-item $last_cmd --menu "Choose an option"  25 78 16 "${menu_options[@]}" 3>&2 2>&1 1>&3-)
 

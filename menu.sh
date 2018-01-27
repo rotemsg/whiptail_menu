@@ -10,7 +10,6 @@ title="Select Action"
 function main(){
 
     menu_options=()
-#    grep '^#func:' workers.stats.sh | sed 's/#func://' > workers.stats.menu
     cat $0 | grep -A1 '^#func:' | grep -v '^-' | sed 's/(){//' | sed 's/^function //' | sed 's/^#func://' | while read l1; do read l2; echo "$l2 $l1"; done > menu.items.txt
 
     while read -r number text; do
@@ -30,24 +29,47 @@ function main(){
 
 
 #func: "show top"
-function any_func_name(){
+function top(){
   top
 }
 
-#func: "action number 1"
-function any_func_name(){
+#func: "hellow world"
+function hellow_world(){
   echo "hello world"
 }
 
 
-#func: "action number 2"
-function another_func_name(){
+#func: "hellow world 2"
+function hellow_world2(){
   echo "hello world 2"
   another_service_function
 }
 
 function another_service_function(){
     echo "this is a function not in the menu"
+}
+
+
+#func: "du in paralle"
+function paralle_process(){
+    paralle_process_job | sort -k1 | less -Si
+}
+
+function paralle_process_job(){
+
+    ftemplate=/tmp/updater_s3_flie_times
+    rm $ftemplate.*
+
+    for k in /var/ /etc/ /usr/;
+    do
+        du -hs $k > $ftemplate.$name &
+        echo $! >> $ftemplate.pids
+    done
+
+    while kill -0  $(cat $ftemplate.pids) 2> /dev/null; do sleep .1; done;
+    rm $ftemplate.pids
+
+    cat $ftemplate.*
 }
 
 

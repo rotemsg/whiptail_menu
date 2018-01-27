@@ -16,7 +16,7 @@ function main(){
         menu_options+=( ${number//\"} "${text//\"}" )
     done < menu.items.txt
 
-    export inp=$(whiptail --backtitle "`date` $inst_data" --title $title  --cancel-button "Quit" --notags --default-item $last_cmd --menu "Choose an option"  25 78 16 "${menu_options[@]}" 3>&2 2>&1 1>&3-)
+    export inp=$(whiptail --backtitle "`date` $inst_data" --title "$title"  --cancel-button "Quit" --notags --default-item $last_cmd --menu "Choose an option"  25 78 16 "${menu_options[@]}" 3>&2 2>&1 1>&3-)
 
     [ ! $inp ] && exit
 
@@ -28,14 +28,14 @@ function main(){
 
 
 
-#func: "show top"
-function top(){
+#func: "run top"
+function run_top(){
   top
 }
 
 #func: "hellow world"
 function hellow_world(){
-  echo "hello world"
+  echo "hello world" | less
 }
 
 

@@ -4,7 +4,7 @@
 param=$1
 last_cmd=0
 
-inst_data="some text for the top left"
+inst_data="some info for the top left"
 title="Select Action"
 
 function main(){
@@ -52,7 +52,7 @@ function another_service_function(){
 
 #func: "du in paralle"
 function paralle_process(){
-    paralle_process_job | sort -k1 | less -Si
+    paralle_process_job | sort -k1 | less 
 }
 
 function paralle_process_job(){
@@ -60,9 +60,9 @@ function paralle_process_job(){
     ftemplate=/tmp/updater_s3_flie_times
     rm $ftemplate.*
 
-    for k in /var/ /etc/ /usr/;
+    for k in var etc usr;
     do
-        du -hs $k > $ftemplate.$name &
+        du -hs "/$k/" > $ftemplate.$k &
         echo $! >> $ftemplate.pids
     done
 
@@ -73,7 +73,7 @@ function paralle_process_job(){
 }
 
 
-#func: "Quit"
+#func: "quit"
 function quit(){
     exit 0
 }
